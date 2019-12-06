@@ -169,7 +169,7 @@ let arrES5 = [4,6,5,4,32,4]
 const compareNumbersES5 = (a , b) => a - b;
 arrES5.sort(compareNumbersES5)
 
-console.log(arrES5);
+// console.log(arrES5);
 
 //sort an array of objects
 var students = [
@@ -193,13 +193,13 @@ students.sort(function ( a , b ){
   }
   return 0; //names must be equal
 });
-console.log(students)
+// console.log(students)
 
 //sort by age
 students.sort(function(a,b){
   return a.age - b.age
 })
-console.log(students)
+// console.log(students)
 
 const sortIndexNumber = (a,b)=> a[1]-b[1];
 const sortAge = (a,b)=> a.age-b.age;
@@ -207,21 +207,73 @@ const sortAge = (a,b)=> a.age-b.age;
 students.sort(sortAge);
 
 
-console.log(students)
+// console.log(students)
 
 var stringArray = ['Blue', 'Humpback', 'Beluga'];
 var numericStringArray = ['80', '9', '700'];
 var numberArray = [40, 1, 5, 200];
 var mixedNumericArray = ['80', '9', '700', 40, 1, 5, 200];
 
-console.log('--** stringArray **--: ');
-console.log('\n',stringArray);
-console.log('-- string array joined --\n', stringArray.join());
-console.log('-- string array sorted --\n', stringArray.sort());
-console.log('-- string array sorted then joined --\n', stringArray.sort().join());
-console.log('\n');
-console.log('--** numberArray **--: ');
-console.log('\n',numberArray);
-console.log('-- number array joined -- \n', numberArray.join());
-console.log('-- number array sorted without a compareNumbers function --\n', numberArray.sort());
-console.log('-- number array sorted with a compareNumbers function --\n', numberArray.sort(compareNumbers));
+// console.log('--** stringArray **--: ');
+// console.log('\n',stringArray);
+// console.log('-- string array joined --\n', stringArray.join());
+// console.log('-- string array sorted --\n', stringArray.sort());
+// console.log('-- string array sorted then joined --\n', stringArray.sort().join());
+// console.log('\n');
+// console.log('--** numberArray **--: ');
+// console.log('\n',numberArray);
+// console.log('-- number array joined -- \n', numberArray.join());
+// console.log('-- number array sorted without a compareNumbers function --\n', numberArray.sort());
+// console.log('-- number array sorted with a compareNumbers function --\n', numberArray.sort(compareNumbers));
+// console.log('\n');
+// console.log('--** numericStringArray **--: ');
+// console.log('\n',numericStringArray);
+// console.log('-- numericStringArray  joined -- \n', numericStringArray.join());
+// console.log('-- numericStringArray  sorted without a compareNumbers function --\n', numericStringArray.sort());
+// console.log('-- numericStringArray  sorted with a compareNumbers function --\n', numericStringArray.sort(compareNumbers));
+// console.log('\n');
+// console.log('--** mixedNumericArray **--: ');
+// console.log('\n',mixedNumericArray);
+// console.log('-- mixedNumericArray  joined -- \n', mixedNumericArray.join());
+// console.log('-- mixedNumericArray  sorted without a compareNumbers function --\n', mixedNumericArray.sort());
+// console.log('-- mixedNumericArray  sorted with a compareNumbers function --\n', mixedNumericArray.sort(compareNumbers));
+
+// Sorting non-ASCII characters
+// For sorting strings with non-ASCII characters, i.e. strings with accented characters (e, é, è, a, ä, etc.), strings from languages other than English, use String.localeCompare. This function can compare those characters so they appear in the right order.
+
+var items = ['réservé', 'premier', 'cliché', 'communiqué', 'café', 'adieu'];
+items.sort(function (a, b) {
+  return a.localeCompare(b);
+});
+
+// items is ['adieu', 'café', 'cliché', 'communiqué', 'premier', 'réservé']
+// Sorting with map
+// The compareFunction can be invoked multiple times per element within the array. Depending on the compareFunction's nature, this may yield a high overhead. The more work a compareFunction does and the more elements there are to sort, it may be more efficient to use map for sorting. The idea is to traverse the array once to extract the actual values used for sorting into a temporary array, sort the temporary array, and then traverse the temporary array to achieve the right order.
+
+// the array to be sorted
+var list = ['Delta', 'alpha', 'CHARLIE', 'bravo'];
+
+// temporary array holds objects with position and sort-value
+var mapped = list.map(function(el, i){
+  return { index: i, value: el.toLowerCase()}
+})
+
+
+
+// sorting the mapped array containing the reduced values
+mapped.sort(function(a,b){
+  if(a.value > b.value){
+  return 1;
+  }
+  if (a.value < b.value){
+    return -1;
+  }
+  return 0;
+})
+
+// container for the resulting order
+var result = mapped.map(function(el){
+  return list[el.index]
+})
+console.log(mapped)
+console.log(result)
